@@ -1,0 +1,75 @@
+body {
+    font-family: 'Arial Black', Gadget, sans-serif; /* Agar font tegas seperti desainmu */
+    background-color: #f0f0f0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.input-container {
+    width: 360px;
+    background-color: #7EBD27; /* Hijau utama desainmu */
+    min-height: 100vh;
+    padding: 30px 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.input-header h1 {
+    color: white;
+    font-size: 28px;
+    margin-bottom: 30px;
+    line-height: 1.2;
+}
+
+/* Kotak Form */
+.form-box {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    text-align: left;
+}
+
+.input-group label {
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* Gaya Input Box */
+.input-group input, 
+.input-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 12px; /* Membuat pojok melengkung */
+    background-color: #D9D9D9; /* Warna abu-abu seperti di desain */
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: none;
+}
+/* Tombol Simpan */
+.btn-simpan {
+    background-color: #FF8B13; /* Oranye kontras */
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.btn-simpan:active {
+    transform: scale(0.98); /* Efek saat ditekan */
+}

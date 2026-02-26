@@ -1,0 +1,128 @@
+/* 1. Definisi Animasi (Taruh di atas agar rapi) */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* 2. Style Dasar */
+body {
+    margin: 0;
+    font-family: 'Arial Black', sans-serif;
+    background-color: #7EBD27;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden; /* Mencegah scroll saat animasi muncul */
+}
+
+.welcome-container {
+    text-align: center;
+    width: 360px;
+    padding: 20px;
+    color: white;
+    /* Animasi masuk untuk seluruh konten */
+    animation: fadeInUp 1s ease-out; 
+}
+
+/* 3. Logo */
+.circle-logo {
+    background: white;
+    width: 200px; /* Ukuran saya sesuaikan sedikit agar proporsional */
+    height: 200px; 
+    border-radius: 50%;
+    margin: 0 auto 10px; /* Jarak bawah dikurangi agar teks naik */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    /* Animasi bernapas pada logo */
+    animation: pulse 3s infinite ease-in-out;
+}
+
+.circle-logo img {
+    width: 80%; /* Logo gambar akan mengisi 80% dari lingkaran putih */
+    height: auto;
+}
+
+/* 4. Teks Judul */
+h1 {
+    font-size: 28px;
+    margin-top: -10px; /* Menarik teks RABBITRY ke atas mendekati logo */
+    margin-bottom: 5px;
+    line-height: 1.1;
+}
+
+h1 span {
+    font-size: 20px;
+    color: #FF8B13;
+    display: block; /* Membuat tulisan DASHBOARD di baris baru */
+}
+
+p {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    margin-bottom: 35px;
+    opacity: 0.9;
+    padding: 0 20px;
+}
+
+/* 5. Tombol-Tombol */
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    /* Animasi tombol muncul belakangan */
+    animation: fadeInUp 1s ease-out 0.5s;
+    animation-fill-mode: both;
+}
+
+.btn-primary, .btn-secondary {
+    text-decoration: none;
+    padding: 16px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: #FF8B13;
+    color: white;
+    box-shadow: 0 6px 20px rgba(255, 139, 19, 0.4);
+}
+
+.btn-secondary {
+    background: white;
+    color: #7EBD27;
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.btn-primary:active, .btn-secondary:active {
+    transform: translateY(-1px);
+}
+
+/* 6. Footer */
+footer {
+    margin-top: 40px;
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    opacity: 0.6;
+}

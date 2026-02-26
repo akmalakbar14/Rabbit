@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Rabbitry</title>
+    <link rel="stylesheet" href="style-output.css">
+    <style>
+        /* Tambahan style dikit biar tombol hapusnya rapi */
+        .btn-hapus {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+        .btn-hapus:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="output-container">
+        <header>
+            <h1>DAFTAR<br>HPL KELINCI</h1>
+        </header>
+
+        <div id="containerKartu"></div>
+
+        <a href="Input.html" class="btn-tambah">TAMBAH DATA</a>
+    </div>
+
+    <script>
+        function muatData() {
+            const container = document.getElementById('containerKartu');
+            
+            // 1. Ambil data dari LocalStorage
+            const dataTersimpan = localStorage.getItem('daftarKelinci');
+            const daftarKelinci = dataTersimpan ? JSON.parse(dataTersimpan) : [];
+
+            // 2. Jika kosong, beri pesan
+            if (daftarKelinci.length === 0) {
+                container.innerHTML = `<p style="text-align:center; color:white; margin-top:20px;">Belum ada data kelinci.</p>`;
+                return;
+            }
+
+            // 3. Bersihkan container
+            container.innerHTML = "";
+
+            // 4. Gambar kartu satu per satu
+            daftarKelinci.forEach((kelinci, index) => {
+                const kawin = new Date(kelinci.tanggal);
+                const hpl = new Date(kawin);
+                hpl.setDate(hpl.getDate() + 30);
+
+                const hariIni = new Date();
+                hariIni.setHours(0,0,0,0);
+                hpl.setHours(0,0,0,0);
+                
+                const selisih = Math.ceil((hpl - hariIni) / (1000 * 60 * 60 * 24));
+                const tglFormat = hpl.toLocaleDateString('id-ID', { day: 'numeric', month: 'long' });
+                
+                // Hitung persen progress bar
+                let persen = ((30 - selisih) / 30) * 100;
+                if (persen > 100) persen = 100;
+                if (persen < 0) persen = 0;
+
+                container.innerHTML += `
+                    <div class="card" style="margin-bottom: 15px;">
+                        <div class="card-content">
+                            <div class="info">
+                                <h3>${kelinci.nama.toUpperCase()}</h3>
+                                <p class="desc">Estimasi Lahir: <b>${tglFormat}</b></p>
+                                <small style="opacity: 0.7;">${kelinci.keterangan || ''}</small>
+                                <br>
+                                <button class="btn-hapus" onclick="hapusKelinci(${index})">Hapus Data</button>
+                            </div>
+                            <div class="status">
+                                <h2 class="hpl-text">H-${selisih > 0 ? selisih : 0}</h2>
+                                <p>Hari Lagi</p>
+                            </div>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: ${persen}%"></div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Fungsi baru untuk menghapus data
+        function hapusKelinci(id) {
+            if (confirm("Hapus data kelinci ini?")) {
+                let daftarKelinci = JSON.parse(localStorage.getItem('daftarKelinci')) || [];
+                // Buang data berdasarkan urutannya (index)
+                daftarKelinci.splice(id, 1);
+                // Simpan lagi ke memori
+                localStorage.setItem('daftarKelinci', JSON.stringify(daftarKelinci));
+                // Gambar ulang layar
+                muatData();
+            }
+        }
+
+        // Jalankan fungsi saat halaman dibuka
+        window.onload = muatData;
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Jadwal Kawin - Rabbitry</title>
+    <link rel="stylesheet" href="style-input.css">
+</head>
+<body>
+
+    <div class="input-container">
+        <header class="input-header">
+            <h1>INPUT<br>JADWAL KAWIN</h1>
+        </header>
+
+        <div class="form-box">
+            <div class="input-group">
+                <label>NAMA INDUKAN</label>
+                <input type="text" id="namaIndukan" placeholder="Masukkan nama kelinci...">
+            </div>
+
+            <div class="input-group">
+                <label>TANGGAL KAWIN</label>
+                <input type="date" id="tanggalKawin">
+            </div>
+
+            <div class="input-group">
+                <label>KETERANGAN</label>
+                <textarea id="keterangan" rows="4" placeholder="Tambahkan catatan khusus..."></textarea>
+            </div>
+
+            <button type="button" id="btnSimpan" class="btn-simpan">SIMPAN</button>
+        </div>
+    </div>
+
+    <script>
+    document.getElementById('btnSimpan').onclick = function() {
+        const nama = document.getElementById('namaIndukan').value;
+        const tanggal = document.getElementById('tanggalKawin').value;
+        const ket = document.getElementById('keterangan').value;
+
+        if (nama === "" || tanggal === "") {
+            alert("Waduh, Nama dan Tanggal jangan kosong ya!");
+            return;
+        }
+
+        // --- REVISI DI SINI ---
+        
+        // 1. Ambil daftar yang sudah ada di memori. 
+        // Kalau belum ada data sama sekali, buat jadi daftar kosong []
+        let daftarKelinci = JSON.parse(localStorage.getItem('daftarKelinci')) || [];
+
+        // 2. Buat objek kelinci baru
+        const dataBaru = {
+            id: Date.now(), // unik id
+            nama: nama,
+            tanggal: tanggal,
+            keterangan: ket
+        };
+
+        // 3. Masukkan data baru ke dalam daftar (ditumpuk)
+        daftarKelinci.push(dataBaru);
+
+        // 4. Simpan kembali seluruh daftar ke memori
+        localStorage.setItem('daftarKelinci', JSON.stringify(daftarKelinci));
+
+        // 5. Pindah halaman
+        window.location.href = "Output.html";
+    };
+</script>
+</body>
+</html>
